@@ -897,7 +897,7 @@ end
 --Read the current co-ordinates of the cursor on the map or in a menu. For crafting recipe and technology menus, it reads the ingredients / requirements instead.
 --Todo: split this function by menu.
 function read_coords(pindex, start_phrase)
-   local vp = viewpoint.get_viewpoint(pindex)
+   local vp = Viewpoint.get_viewpoint(pindex)
 
    start_phrase = start_phrase or ""
    local result = start_phrase
