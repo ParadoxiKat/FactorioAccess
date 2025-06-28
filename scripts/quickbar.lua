@@ -1,16 +1,19 @@
+
 --Here: Quickbar related functions
 local Localising = require("scripts.localising")
+local UiRouter = require("scripts.ui.router")
 
 local mod = {}
 
 ---@param event EventData.CustomInputEvent
 function mod.quickbar_get_handler(event)
    local pindex = event.player_index
+   local router = UiRouter.get_router(pindex)
    if not check_for_player(pindex) then return end
    if
-      players[pindex].menu == "inventory"
-      or players[pindex].menu == "none"
-      or (players[pindex].menu == "building" or players[pindex].menu == "vehicle")
+      router:is_ui_open(UiRouter.UI_NAMES.INVENTORY)
+      or not router:is_ui_open()
+      or (UiRouter:is_ui_open(UiRouter.UI_NAMES.BUILDING) or UiRouter:is_ui_open(UiRouter.UI_NAMES.VEHICLE))
    then
       local num = tonumber(string.sub(event.input_name, -1))
       if num == 0 then num = 10 end
@@ -22,11 +25,12 @@ end
 ---@param event EventData.CustomInputEvent
 function mod.quickbar_set_handler(event)
    local pindex = event.player_index
+   local router = UiRouter.get_router(pindex)
    if not check_for_player(pindex) then return end
    if
-      players[pindex].menu == "inventory"
-      or players[pindex].menu == "none"
-      or (players[pindex].menu == "building" or players[pindex].menu == "vehicle")
+      router:is_ui_open(UiRouter.UI_NAMES.INVENTORY)
+      or not router:is_ui_open()
+      or (UiRouter:is_ui_open(UiRouter.UI_NAMES.BUILDING) or UiRouter:is_ui_open(UiRouter.UI_NAMES.VEHICLE))
    then
       local num = tonumber(string.sub(event.input_name, -1))
       if num == 0 then num = 10 end
